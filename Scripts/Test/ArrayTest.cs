@@ -64,10 +64,11 @@ public class ArrayTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            if (activeCubes[1]!=19 && activeCubes[3] != 19 && activeCubes[5] != 19 && activeCubes[7] != 19)
+            bool collision = CheckCollisionDown(activeCubes[1], activeCubes[3], activeCubes[5], activeCubes[7]);
+            if (!collision)
             {
                 moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
                       cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], false);
@@ -81,9 +82,9 @@ public class ArrayTest : MonoBehaviour
                       cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], true);
             }
 
-            if (activeCubes[1] == 19 || activeCubes[3] == 19 || activeCubes[5] == 19 || activeCubes[7] == 19 )
+            if (collision)
             {
-                lockTetrimino(board[activeCubes[0], activeCubes[1]], board[activeCubes[2], activeCubes[3]], board[activeCubes[4], activeCubes[5]], board[activeCubes[6], activeCubes[7]]);
+                lockTetrimino(board[activeCubes[0], activeCubes[1] -1], board[activeCubes[2], activeCubes[3] -1], board[activeCubes[4], activeCubes[5] -1], board[activeCubes[6], activeCubes[7]-1]);
                 NextTetrimino();
             }
 
@@ -107,7 +108,7 @@ public class ArrayTest : MonoBehaviour
         }
 
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             if (activeCubes[0] != 0 && activeCubes[2] != 0 && activeCubes[4] != 0 && activeCubes[6] != 0)
             {
@@ -124,7 +125,7 @@ public class ArrayTest : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             if (activeCubes[0] != 9 && activeCubes[2] != 9 && activeCubes[4] != 9 && activeCubes[6] != 9)
             {
@@ -140,6 +141,39 @@ public class ArrayTest : MonoBehaviour
                       cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], true);
             }
         }
+    }
+
+    private bool CheckCollisionDown(int cubeY1, int cubeY2, int cubeY3, int cubeY4)
+    {
+        int isCubeOccupied1, isCubeOccupied2, isCubeOccupied3, isCubeOccupied4;
+        if (activeCubes[1] != 19 && activeCubes[3] != 19 && activeCubes[5] != 19 && activeCubes[7] != 19)
+        {
+            cubeY1++; cubeY2++; cubeY3++; cubeY4++;
+            isCubeOccupied1 = occupied[board[activeCubes[0], activeCubes[1]]];
+            isCubeOccupied2 = occupied[board[activeCubes[2], activeCubes[3]]];
+            isCubeOccupied3 = occupied[board[activeCubes[4], activeCubes[5]]];
+            isCubeOccupied4 = occupied[board[activeCubes[6], activeCubes[7]]];
+
+            // IF Locked tetrimino exists when moving down then collision is true and current tetrimino should be locked
+            if (isCubeOccupied1 ==1 || isCubeOccupied2 == 1 || isCubeOccupied3 == 1 || isCubeOccupied4 == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        if (activeCubes[1] == 19 || activeCubes[3] == 19 || activeCubes[5] == 19 || activeCubes[7] == 19)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+
     }
 
     public void NextTetrimino()
