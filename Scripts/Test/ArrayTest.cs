@@ -67,7 +67,7 @@ public class ArrayTest : MonoBehaviour
         
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            bool collision = CheckCollisionDown(activeCubes[1], activeCubes[3], activeCubes[5], activeCubes[7]);
+            bool collision = CheckCollisionDown(activeCubes[1], activeCubes[3], activeCubes[5], activeCubes[7],0);
             if (!collision)
             {
                 moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
@@ -84,7 +84,7 @@ public class ArrayTest : MonoBehaviour
 
             if (collision)
             {
-                lockTetrimino(board[activeCubes[0], activeCubes[1] -1], board[activeCubes[2], activeCubes[3] -1], board[activeCubes[4], activeCubes[5] -1], board[activeCubes[6], activeCubes[7]-1]);
+                lockTetrimino(board[activeCubes[0], activeCubes[1]], board[activeCubes[2], activeCubes[3]], board[activeCubes[4], activeCubes[5]], board[activeCubes[6], activeCubes[7]]);
                 NextTetrimino();
             }
 
@@ -92,7 +92,8 @@ public class ArrayTest : MonoBehaviour
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            if (activeCubes[1] != 0 && activeCubes[3] != 0 && activeCubes[5] != 0 && activeCubes[7] != 0)
+            bool collision = CheckCollisionDown(activeCubes[1], activeCubes[3], activeCubes[5], activeCubes[7], 1);
+            if (!collision)
             {
                 moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
                       cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], false);
@@ -141,21 +142,31 @@ public class ArrayTest : MonoBehaviour
                       cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], true);
             }
         }
+
+        // Testing: Immediately lock tetrimino on pressing A
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            lockTetrimino(board[activeCubes[0], activeCubes[1]], board[activeCubes[2], activeCubes[3]], board[activeCubes[4], activeCubes[5]], board[activeCubes[6], activeCubes[7]]);
+            NextTetrimino();
+        }
     }
 
-    private bool CheckCollisionDown(int cubeY1, int cubeY2, int cubeY3, int cubeY4)
+    // integer direction dictates which way to check 0: down, 1: up, 2: left, 3: right
+    private bool CheckCollisionDown(int cubeCoor1, int cubeCoor2, int cubeCoor3, int cubeCoor4, int direction)
     {
         int isCubeOccupied1, isCubeOccupied2, isCubeOccupied3, isCubeOccupied4;
+        if(direction == 0)
+        {
         if (activeCubes[1] != 19 && activeCubes[3] != 19 && activeCubes[5] != 19 && activeCubes[7] != 19)
         {
-            cubeY1++; cubeY2++; cubeY3++; cubeY4++;
-            isCubeOccupied1 = occupied[board[activeCubes[0], activeCubes[1]]];
-            isCubeOccupied2 = occupied[board[activeCubes[2], activeCubes[3]]];
-            isCubeOccupied3 = occupied[board[activeCubes[4], activeCubes[5]]];
-            isCubeOccupied4 = occupied[board[activeCubes[6], activeCubes[7]]];
+                cubeCoor1++; cubeCoor2++; cubeCoor3++; cubeCoor4++;
+                isCubeOccupied1 = occupied[board[activeCubes[0], cubeCoor1]];
+                isCubeOccupied2 = occupied[board[activeCubes[2], cubeCoor2]];
+                isCubeOccupied3 = occupied[board[activeCubes[4], cubeCoor3]];
+                isCubeOccupied4 = occupied[board[activeCubes[6], cubeCoor4]];
 
             // IF Locked tetrimino exists when moving down then collision is true and current tetrimino should be locked
-            if (isCubeOccupied1 ==1 || isCubeOccupied2 == 1 || isCubeOccupied3 == 1 || isCubeOccupied4 == 1)
+                if (isCubeOccupied1 == 1 || isCubeOccupied2 == 1 || isCubeOccupied3 == 1 || isCubeOccupied4 == 1)
             {
                 return true;
             }
@@ -172,7 +183,49 @@ public class ArrayTest : MonoBehaviour
         {
             return false;
         }
+        }
 
+        if (direction == 1)
+        {
+            if (activeCubes[1] != 19 && activeCubes[3] != 19 && activeCubes[5] != 19 && activeCubes[7] != 19)
+            {
+                cubeCoor1--; cubeCoor2--; cubeCoor3--; cubeCoor4--;
+                isCubeOccupied1 = occupied[board[activeCubes[0], cubeCoor1]];
+                isCubeOccupied2 = occupied[board[activeCubes[2], cubeCoor2]];
+                isCubeOccupied3 = occupied[board[activeCubes[4], cubeCoor3]];
+                isCubeOccupied4 = occupied[board[activeCubes[6], cubeCoor4]];
+
+                // IF Locked tetrimino exists when moving down then collision is true and current tetrimino should be locked
+                if (isCubeOccupied1 == 1 || isCubeOccupied2 == 1 || isCubeOccupied3 == 1 || isCubeOccupied4 == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            if (activeCubes[1] == 19 || activeCubes[3] == 19 || activeCubes[5] == 19 || activeCubes[7] == 19)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+    }
+        }
+        if (direction == 2)
+        {
+            return false;
+        }
+        if (direction == 3)
+        {
+            return false;
+        }
+        else
+        {
+            return false;
+        }
 
     }
 
@@ -247,7 +300,7 @@ public class ArrayTest : MonoBehaviour
         occupied[cube3] = 1;
         occupied[cube4] = 1;
 
-        // For testing Purposes
+        // For testing Purposes locked tetriminos are turned grey
         //cube[cube1].GetComponent<Renderer>().material.color = Color.grey;
         //cube[cube2].GetComponent<Renderer>().material.color = Color.grey;
         //cube[cube3].GetComponent<Renderer>().material.color = Color.grey;
