@@ -67,7 +67,7 @@ public class ArrayTest : MonoBehaviour
         
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            bool collision = CheckCollisionDown(activeCubes[1], activeCubes[3], activeCubes[5], activeCubes[7],0);
+            bool collision = CheckCollision(activeCubes[1], activeCubes[3], activeCubes[5], activeCubes[7],0);
             if (!collision)
             {
                 moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
@@ -92,7 +92,7 @@ public class ArrayTest : MonoBehaviour
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            bool collision = CheckCollisionDown(activeCubes[1], activeCubes[3], activeCubes[5], activeCubes[7], 1);
+            bool collision = CheckCollision(activeCubes[1], activeCubes[3], activeCubes[5], activeCubes[7], 1);
             if (!collision)
             {
                 moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
@@ -148,11 +148,28 @@ public class ArrayTest : MonoBehaviour
         {
             lockTetrimino(board[activeCubes[0], activeCubes[1]], board[activeCubes[2], activeCubes[3]], board[activeCubes[4], activeCubes[5]], board[activeCubes[6], activeCubes[7]]);
             NextTetrimino();
+            
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            showOccupiedCubes();
+    }
+    }
+
+    private void showOccupiedCubes()
+    {
+        for (int i = 0; i < occupied.Length; i++)
+        {
+            if (occupied[i] == 1)
+            {
+                cube[occupied[i]].GetComponent<Renderer>().material.color = Color.grey;
+            }
         }
     }
 
     // integer direction dictates which way to check 0: down, 1: up, 2: left, 3: right
-    private bool CheckCollisionDown(int cubeCoor1, int cubeCoor2, int cubeCoor3, int cubeCoor4, int direction)
+    private bool CheckCollision(int cubeCoor1, int cubeCoor2, int cubeCoor3, int cubeCoor4, int direction)
     {
         int isCubeOccupied1, isCubeOccupied2, isCubeOccupied3, isCubeOccupied4;
         if(direction == 0)
