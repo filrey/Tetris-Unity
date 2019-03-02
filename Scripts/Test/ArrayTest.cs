@@ -111,7 +111,8 @@ public class ArrayTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (activeCubes[0] != 0 && activeCubes[2] != 0 && activeCubes[4] != 0 && activeCubes[6] != 0)
+            bool collision = CheckCollision(activeCubes[0], activeCubes[2], activeCubes[4], activeCubes[6], 2);
+            if (!collision)
             {
                 moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
                       cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], false);
@@ -128,7 +129,8 @@ public class ArrayTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (activeCubes[0] != 9 && activeCubes[2] != 9 && activeCubes[4] != 9 && activeCubes[6] != 9)
+            bool collision = CheckCollision(activeCubes[0], activeCubes[2], activeCubes[4], activeCubes[6], 3);
+            if (!collision)
             {
                 moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
                       cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], false);
@@ -159,11 +161,12 @@ public class ArrayTest : MonoBehaviour
 
     private void showOccupiedCubes()
     {
+        Debug.Log("Displaying Occupied Cubes... ");
         for (int i = 0; i < occupied.Length; i++)
         {
             if (occupied[i] == 1)
             {
-                cube[occupied[i]].GetComponent<Renderer>().material.color = Color.grey;
+                cube[i].GetComponent<Renderer>().material.color = Color.grey;
             }
         }
     }
@@ -229,15 +232,65 @@ public class ArrayTest : MonoBehaviour
             else
             {
                 return false;
-    }
+            }
         }
         if (direction == 2)
         {
-            return false;
+            if (activeCubes[0] != 0 && activeCubes[2] != 0 && activeCubes[4] != 0 && activeCubes[6] != 0)
+            {
+                cubeCoor1--; cubeCoor2--; cubeCoor3--; cubeCoor4--;
+                isCubeOccupied1 = occupied[board[cubeCoor1, activeCubes[1]]];
+                isCubeOccupied2 = occupied[board[cubeCoor2, activeCubes[3]]];
+                isCubeOccupied3 = occupied[board[cubeCoor3, activeCubes[5]]];
+                isCubeOccupied4 = occupied[board[cubeCoor4, activeCubes[7]]];
+
+                // IF Locked tetrimino exists when moving down then collision is true and current tetrimino should be locked
+                if (isCubeOccupied1 == 1 || isCubeOccupied2 == 1 || isCubeOccupied3 == 1 || isCubeOccupied4 == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            if (activeCubes[0] == 0 || activeCubes[2] == 0 || activeCubes[4] == 0 || activeCubes[6] == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         if (direction == 3)
         {
-            return false;
+            if (activeCubes[0] != 9 && activeCubes[2] != 9 && activeCubes[4] != 9 && activeCubes[6] != 9)
+            {
+                cubeCoor1++; cubeCoor2++; cubeCoor3++; cubeCoor4++;
+                isCubeOccupied1 = occupied[board[cubeCoor1, activeCubes[1]]];
+                isCubeOccupied2 = occupied[board[cubeCoor2, activeCubes[3]]];
+                isCubeOccupied3 = occupied[board[cubeCoor3, activeCubes[5]]];
+                isCubeOccupied4 = occupied[board[cubeCoor4, activeCubes[7]]];
+
+                // IF Locked tetrimino exists when moving down then collision is true and current tetrimino should be locked
+                if (isCubeOccupied1 == 1 || isCubeOccupied2 == 1 || isCubeOccupied3 == 1 || isCubeOccupied4 == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            if (activeCubes[0] == 9 || activeCubes[2] == 9 || activeCubes[4] == 9 || activeCubes[6] == 9)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
@@ -316,6 +369,8 @@ public class ArrayTest : MonoBehaviour
         occupied[cube2] = 1;
         occupied[cube3] = 1;
         occupied[cube4] = 1;
+
+        Debug.Log("Locked: ["+cube1+"]"+" ["+cube2+"]" + " [" + cube3+"]" + " [" + cube4+"]");
 
         // For testing Purposes locked tetriminos are turned grey
         //cube[cube1].GetComponent<Renderer>().material.color = Color.grey;
