@@ -158,104 +158,95 @@ public class ArrayTest : MonoBehaviour
     {
         int cubeToCheck1;
         int cubeToCheck2;
+        int currState = shapeState;
         int[,] subBoard = new int[3,3];
         int rootCube = board[activeCubes[0], activeCubes[1]];
         bool collision = false;
 
         if (currentShape ==5)
         {
-            //[111]
-            //[010]
-            //[010]
-            if (shapeState==0)
+            switch (shapeState)
             {
-                subBoard[0, 0] = rootCube;
-                subBoard[1, 0] = rootCube + 20;
-                subBoard[2, 0] = rootCube + 40;
+                case 0:
+                    subBoard[0, 0] = rootCube;
+                    subBoard[1, 0] = rootCube + 20;
+                    subBoard[2, 0] = rootCube + 40;
 
-                subBoard[0, 1] = rootCube + 1;
-                subBoard[1, 1] = rootCube + 21;
-                subBoard[2, 1] = rootCube + 41;
+                    subBoard[0, 1] = rootCube + 1;
+                    subBoard[1, 1] = rootCube + 21;
+                    subBoard[2, 1] = rootCube + 41;
 
-                subBoard[0, 2] = rootCube + 2;
-                subBoard[1, 2] = rootCube + 22;
-                subBoard[2, 2] = rootCube + 42;
+                    subBoard[0, 2] = rootCube + 2;
+                    subBoard[1, 2] = rootCube + 22;
+                    subBoard[2, 2] = rootCube + 42;
 
-                cubeToCheck1 = subBoard[1, 2];
-                cubeToCheck2 = subBoard[2, 1];
+                    cubeToCheck1 = subBoard[1, 2];
+                    cubeToCheck2 = subBoard[2, 1];
 
-                rotateTetrimino(subBoard,cubeToCheck1,cubeToCheck2);
+                    rotateTetrimino(subBoard, cubeToCheck1, cubeToCheck2);
+                    Debug.Log("T Rotation to 1");
+                    break;
 
+                case 1:
+                    subBoard[0, 0] = rootCube - 20;
+                    subBoard[1, 0] = rootCube;
+                    subBoard[2, 0] = rootCube + 20;
 
+                    subBoard[0, 1] = subBoard[0, 0] + 1;
+                    subBoard[1, 1] = subBoard[1, 0] + 1;
+                    subBoard[2, 1] = subBoard[2, 0] + 1;
+
+                    subBoard[0, 2] = subBoard[0, 1] + 1;
+                    subBoard[1, 2] = subBoard[1, 1] + 1;
+                    subBoard[2, 2] = subBoard[2, 1] + 1;
+
+                    cubeToCheck1 = subBoard[0, 2];
+                    cubeToCheck2 = subBoard[2, 2];
+
+                    rotateTetrimino(subBoard, cubeToCheck1, cubeToCheck2);
+                    Debug.Log("T Rotation to 2");
+                    break;
+                case 2:
+                    subBoard[0, 0] = rootCube -42;
+                    subBoard[1, 0] = rootCube -41;
+                    subBoard[2, 0] = rootCube -40;
+
+                    subBoard[0, 1] = rootCube -22;
+                    subBoard[1, 1] = rootCube -21;
+                    subBoard[2, 1] = rootCube -20;
+
+                    subBoard[0, 2] = rootCube -2;
+                    subBoard[1, 2] = rootCube -1;
+                    subBoard[2, 2] = rootCube;
+
+                    cubeToCheck1 = subBoard[1, 0];
+                    cubeToCheck2 = subBoard[0, 1];
+
+                    rotateTetrimino(subBoard, cubeToCheck1, cubeToCheck2);
+                    Debug.Log("T Rotation to 3");
+                    break;
+                case 3:
+                    subBoard[0, 0] = rootCube - 20;
+                    subBoard[1, 0] = rootCube;
+                    subBoard[2, 0] = rootCube + 20;
+
+                    subBoard[0, 1] = subBoard[0, 0] + 1;
+                    subBoard[1, 1] = subBoard[1, 0] + 1;
+                    subBoard[2, 1] = subBoard[2, 0] + 1;
+
+                    subBoard[0, 2] = subBoard[0, 1] + 1;
+                    subBoard[1, 2] = subBoard[1, 1] + 1;
+                    subBoard[2, 2] = subBoard[2, 1] + 1;
+
+                    cubeToCheck1 = subBoard[0, 0];
+                    cubeToCheck2 = subBoard[2, 0];
+
+                    rotateTetrimino(subBoard, cubeToCheck1, cubeToCheck2);
+                    Debug.Log("T Rotation to 0");
+                    break;
+                default:
+                    break;
             }
-            //[010]
-            //[110]
-            //[010]
-            //if (shapeState == 1)
-            //{
-            //    subBoard[0, 0] = rootCube -20;
-            //    subBoard[1, 0] = rootCube;
-            //    subBoard[2, 0] = rootCube + 20;
-
-            //    subBoard[0, 1] = subBoard[0, 0] + 1;
-            //    subBoard[1, 1] = subBoard[1, 0] + 1;
-            //    subBoard[2, 1] = subBoard[2, 0] + 1;
-
-            //    subBoard[0, 2] = subBoard[0, 1] + 1;
-            //    subBoard[1, 2] = subBoard[1, 1] + 1;
-            //    subBoard[2, 2] = subBoard[2, 1] + 1;
-
-            //    cubeToCheck1 = subBoard[0, 2];
-            //    cubeToCheck2 = subBoard[2, 2];
-
-            //    rotateTetrimino(subBoard, cubeToCheck1, cubeToCheck2);
-
-
-            //}
-
-            //if (shapeState == 2)
-            //{
-            //    subBoard[0, 0] = rootCube;
-            //    subBoard[1, 0] = rootCube + 20;
-            //    subBoard[2, 0] = rootCube + 40;
-
-            //    subBoard[0, 1] = rootCube + 1;
-            //    subBoard[1, 1] = rootCube + 21;
-            //    subBoard[2, 1] = rootCube + 41;
-
-            //    subBoard[0, 2] = rootCube + 2;
-            //    subBoard[1, 2] = rootCube + 22;
-            //    subBoard[2, 2] = rootCube + 42;
-
-            //    cubeToCheck1 = subBoard[1, 2];
-            //    cubeToCheck2 = subBoard[2, 1];
-
-            //    rotateTetrimino(subBoard, cubeToCheck1, cubeToCheck2);
-
-
-            //}
-
-            //if (shapeState == 3)
-            //{
-            //    subBoard[0, 0] = rootCube;
-            //    subBoard[1, 0] = rootCube + 20;
-            //    subBoard[2, 0] = rootCube + 40;
-
-            //    subBoard[0, 1] = rootCube + 1;
-            //    subBoard[1, 1] = rootCube + 21;
-            //    subBoard[2, 1] = rootCube + 41;
-
-            //    subBoard[0, 2] = rootCube + 2;
-            //    subBoard[1, 2] = rootCube + 22;
-            //    subBoard[2, 2] = rootCube + 42;
-
-            //    cubeToCheck1 = subBoard[1, 2];
-            //    cubeToCheck2 = subBoard[2, 1];
-
-            //    rotateTetrimino(subBoard, cubeToCheck1, cubeToCheck2);
-
-
-            //}
         }
     }
 
@@ -275,57 +266,109 @@ public class ArrayTest : MonoBehaviour
 
         if (currentShape ==5 && !collision)
         {
-            if (shapeState == 0)
+            switch (shapeState)
             {
-                for (int x = 0; x < cubes.Length; x++)
-                {
-                    cubes[x].GetComponent<Renderer>().material = defaultMat;
-                }
-                // Cube 1
-                activeCubes[0]++;
-                // Cube 2
-                activeCubes[3]++;
-                // Cube 3
-                activeCubes[4]--;
-                activeCubes[5]+=2;
-                // Cube 4
-                activeCubes[6]++;
+                case 0:
+                    for (int x = 0; x < cubes.Length; x++)
+                    {
+                        cubes[x].GetComponent<Renderer>().material = defaultMat;
+                    }
+                    // Cube 1
+                    activeCubes[0]++;
+                    // Cube 2
+                    activeCubes[3]++;
+                    // Cube 3
+                    activeCubes[4]--;
+                    activeCubes[5] += 2;
+                    // Cube 4
+                    activeCubes[6]++;
 
-                shapeState = 1;
+                    shapeState = 1;
 
-                cubes[3].GetComponent<Renderer>().material.color = currentColor;
-                cubes[4].GetComponent<Renderer>().material.color = currentColor;
-                cubes[5].GetComponent<Renderer>().material.color = currentColor;
-                cubes[7].GetComponent<Renderer>().material.color = currentColor;
+                    cubes[3].GetComponent<Renderer>().material.color = currentColor;
+                    cubes[4].GetComponent<Renderer>().material.color = currentColor;
+                    cubes[5].GetComponent<Renderer>().material.color = currentColor;
+                    cubes[7].GetComponent<Renderer>().material.color = currentColor;
+                    break;
+                case 1:
+                    for (int x = 0; x < cubes.Length; x++)
+                    {
+                        cubes[x].GetComponent<Renderer>().material = defaultMat;
+                    }
+                    // Cube 1
+                    activeCubes[0]++;
+                    activeCubes[1] += 2;
+                    // Cube 2
+                    activeCubes[3]++;
+                    // Cube 3
+                    activeCubes[4]--;
+                    // Cube 4
+                    activeCubes[6]--;
 
+                    shapeState = 2;
+
+                    cubes[8].GetComponent<Renderer>().material.color = currentColor;
+                    cubes[5].GetComponent<Renderer>().material.color = currentColor;
+                    cubes[2].GetComponent<Renderer>().material.color = currentColor;
+                    cubes[4].GetComponent<Renderer>().material.color = currentColor;
+                    break;
+                case 2:
+                    for (int x = 0; x < cubes.Length; x++)
+                    {
+                        cubes[x].GetComponent<Renderer>().material = defaultMat;
+                    }
+                    // Cube 1
+                    activeCubes[0]--;
+                    activeCubes[1] -= 2;
+                    // Cube 2
+                    activeCubes[3]--;
+                    // Cube 3
+                    activeCubes[4]++;
+                    // Cube 4
+                    activeCubes[6]--;
+
+                    shapeState = 3;
+                    //[2,1,0]
+                    //[5,4,3]
+                    //[8,7,6]
+                    cubes[1].GetComponent<Renderer>().material.color = currentColor;
+                    cubes[4].GetComponent<Renderer>().material.color = currentColor;
+                    cubes[7].GetComponent<Renderer>().material.color = currentColor;
+                    cubes[3].GetComponent<Renderer>().material.color = currentColor;
+
+
+                    break;
+                case 3:
+                    for (int x = 0; x < cubes.Length; x++)
+                    {
+                        cubes[x].GetComponent<Renderer>().material = defaultMat;
+                    }
+                    //// Cube 1
+                    activeCubes[0]++;
+                    //// Cube 2
+                    activeCubes[3]--;
+                    //// Cube 3
+                    activeCubes[4]--;
+                    activeCubes[5]-=2;
+                    //// Cube 4
+                    activeCubes[6]++;
+
+                    shapeState = 0;
+                    //[2,1,0]
+                    //[5,4,3]
+                    //[8,7,6]
+                    //cube[board[activeCubes[0], activeCubes[1]]].GetComponent<Renderer>().material.color = Color.red;
+                    //cube[board[activeCubes[2], activeCubes[3]]].GetComponent<Renderer>().material.color = Color.yellow;
+                    //cube[board[activeCubes[4], activeCubes[5]]].GetComponent<Renderer>().material.color = Color.blue;
+                    //cube[board[activeCubes[6], activeCubes[7]]].GetComponent<Renderer>().material.color = Color.green;
+                    cubes[0].GetComponent<Renderer>().material.color = currentColor;
+                    cubes[1].GetComponent<Renderer>().material.color = currentColor;
+                    cubes[2].GetComponent<Renderer>().material.color = currentColor;
+                    cubes[4].GetComponent<Renderer>().material.color = currentColor;
+                    break;
+                default:
+                    break;
             }
-
-            //if (shapeState == 1)
-            //{
-            //    for (int x = 0; x < cubes.Length; x++)
-            //    {
-            //        cubes[x].GetComponent<Renderer>().material = defaultMat;
-            //    }
-            //    // Cube 1
-            //    activeCubes[0]++;
-            //    activeCubes[1]+=2;
-            //    // Cube 2
-            //    activeCubes[3]++;
-            //    // Cube 3
-            //    activeCubes[4]--;
-            //    // Cube 4
-            //    activeCubes[6]++;
-
-            //    shapeState = 2;
-            //    //[630]
-            //    //[741]
-            //    //[852]
-            //    cubes[8].GetComponent<Renderer>().material.color = currentColor;
-            //    cubes[5].GetComponent<Renderer>().material.color = currentColor;
-            //    cubes[2].GetComponent<Renderer>().material.color = currentColor;
-            //    cubes[4].GetComponent<Renderer>().material.color = currentColor;
-
-            //}
         }
     }
 
