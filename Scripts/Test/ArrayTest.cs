@@ -285,10 +285,17 @@ public class ArrayTest : MonoBehaviour
 
                     shapeState = 1;
 
-                    cubes[3].GetComponent<Renderer>().material.color = currentColor;
-                    cubes[4].GetComponent<Renderer>().material.color = currentColor;
-                    cubes[5].GetComponent<Renderer>().material.color = currentColor;
-                    cubes[7].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[3].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[4].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[5].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[7].GetComponent<Renderer>().material.color = currentColor;
+
+                    Debug.Log("Activecubes [0-7]: "+ activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    cube[board[activeCubes[0], activeCubes[1]]].GetComponent<Renderer>().material.color = Color.red;
+                    cube[board[activeCubes[2], activeCubes[3]]].GetComponent<Renderer>().material.color = Color.yellow;
+                    cube[board[activeCubes[4], activeCubes[5]]].GetComponent<Renderer>().material.color = Color.blue;
+                    cube[board[activeCubes[6], activeCubes[7]]].GetComponent<Renderer>().material.color = Color.green;
                     break;
                 case 1:
                     for (int x = 0; x < cubes.Length; x++)
@@ -307,10 +314,15 @@ public class ArrayTest : MonoBehaviour
 
                     shapeState = 2;
 
-                    cubes[8].GetComponent<Renderer>().material.color = currentColor;
-                    cubes[5].GetComponent<Renderer>().material.color = currentColor;
-                    cubes[2].GetComponent<Renderer>().material.color = currentColor;
-                    cubes[4].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[8].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[5].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[2].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[4].GetComponent<Renderer>().material.color = currentColor;
+
+                    cube[board[activeCubes[0], activeCubes[1]]].GetComponent<Renderer>().material.color = Color.red;
+                    cube[board[activeCubes[2], activeCubes[3]]].GetComponent<Renderer>().material.color = Color.yellow;
+                    cube[board[activeCubes[4], activeCubes[5]]].GetComponent<Renderer>().material.color = Color.blue;
+                    cube[board[activeCubes[6], activeCubes[7]]].GetComponent<Renderer>().material.color = Color.green;
                     break;
                 case 2:
                     for (int x = 0; x < cubes.Length; x++)
@@ -331,10 +343,15 @@ public class ArrayTest : MonoBehaviour
                     //[2,1,0]
                     //[5,4,3]
                     //[8,7,6]
-                    cubes[1].GetComponent<Renderer>().material.color = currentColor;
-                    cubes[4].GetComponent<Renderer>().material.color = currentColor;
-                    cubes[7].GetComponent<Renderer>().material.color = currentColor;
-                    cubes[3].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[1].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[4].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[7].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[3].GetComponent<Renderer>().material.color = currentColor;
+
+                    cube[board[activeCubes[0], activeCubes[1]]].GetComponent<Renderer>().material.color = Color.red;
+                    cube[board[activeCubes[2], activeCubes[3]]].GetComponent<Renderer>().material.color = Color.yellow;
+                    cube[board[activeCubes[4], activeCubes[5]]].GetComponent<Renderer>().material.color = Color.blue;
+                    cube[board[activeCubes[6], activeCubes[7]]].GetComponent<Renderer>().material.color = Color.green;
 
 
                     break;
@@ -354,17 +371,28 @@ public class ArrayTest : MonoBehaviour
                     activeCubes[6]++;
 
                     shapeState = 0;
-                    //[2,1,0]
-                    //[5,4,3]
-                    //[8,7,6]
-                    //cube[board[activeCubes[0], activeCubes[1]]].GetComponent<Renderer>().material.color = Color.red;
-                    //cube[board[activeCubes[2], activeCubes[3]]].GetComponent<Renderer>().material.color = Color.yellow;
-                    //cube[board[activeCubes[4], activeCubes[5]]].GetComponent<Renderer>().material.color = Color.blue;
-                    //cube[board[activeCubes[6], activeCubes[7]]].GetComponent<Renderer>().material.color = Color.green;
-                    cubes[0].GetComponent<Renderer>().material.color = currentColor;
-                    cubes[1].GetComponent<Renderer>().material.color = currentColor;
-                    cubes[2].GetComponent<Renderer>().material.color = currentColor;
-                    cubes[4].GetComponent<Renderer>().material.color = currentColor;
+                    //[6,3,0]
+                    //[7,4,1]
+                    //[8,5,2]
+                    // cubes[0].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[1].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[2].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[3].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[4].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[5].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[6].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[7].GetComponent<Renderer>().material.color = currentColor;
+                    // cubes[8].GetComponent<Renderer>().material.color = currentColor;
+
+                    //Testing cube position
+                    cube[board[activeCubes[0], activeCubes[1]]].GetComponent<Renderer>().material.color = Color.red;
+                    cube[board[activeCubes[2], activeCubes[3]]].GetComponent<Renderer>().material.color = Color.yellow;
+                    cube[board[activeCubes[4], activeCubes[5]]].GetComponent<Renderer>().material.color = Color.blue;
+                    cube[board[activeCubes[6], activeCubes[7]]].GetComponent<Renderer>().material.color = Color.green;
+
+                    // Reset active cubes to original position
+                    activeCubes[0]-=2;
+                    activeCubes[4]+=2;
                     break;
                 default:
                     break;
