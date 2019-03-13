@@ -152,7 +152,43 @@ public class ArrayTest : MonoBehaviour
         {
             rotateClockwise();
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            chooseTetrimno(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            chooseTetrimno(2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            chooseTetrimno(3);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            chooseTetrimno(4);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            chooseTetrimno(5);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            chooseTetrimno(6);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            chooseTetrimno(7);
+        }
     }
+
 
     private void rotateClockwise()
     {
@@ -558,6 +594,76 @@ public class ArrayTest : MonoBehaviour
             return false;
         }
 
+    }
+
+    private void chooseTetrimno(int shape)
+    {
+
+        int[] iCoor = new int[8] { 3, 0, 4, 0, 5, 0, 6, 0 };
+        int[] jCoor = new int[8] { 3, 0, 4, 0, 5, 0, 3, 1 };
+        int[] lCoor = new int[8] { 4, 0, 5, 0, 6, 0, 6, 1 };
+        int[] oCoor = new int[8] { 4, 0, 5, 0, 4, 1, 5, 1 };
+        int[] sCoor = new int[8] { 4, 0, 5, 0, 5, 1, 6, 1 };
+        int[] tCoor = new int[8] { 3, 0, 4, 0, 5, 0, 4, 1 };
+        int[] zCoor = new int[8] { 4, 0, 5, 0, 3, 1, 4, 1 };
+
+        shapeState = 0;
+
+
+        switch (shape)
+        {
+            case 1:
+                currentColor = Color.cyan;
+                activeCubes = iCoor;
+                currentShape = 0;
+                moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
+                      cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], true);
+                break;
+            case 2:
+                currentColor = Color.blue;
+                activeCubes = jCoor;
+                currentShape = 1;
+                moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
+                      cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], true);
+                break;
+            case 3:
+                currentColor = Color.white;
+                activeCubes = lCoor;
+                currentShape = 2;
+                moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
+                      cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], true);
+                break;
+            case 4:
+                currentColor = Color.yellow;
+                activeCubes = oCoor;
+                currentShape = 3;
+                moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
+                      cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], true);
+                break;
+            case 5:
+                currentColor = Color.green;
+                activeCubes = sCoor;
+                currentShape = 4;
+                moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
+                      cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], true);
+                break;
+            case 6:
+                currentColor = Color.magenta;
+                activeCubes = tCoor;
+                currentShape = 5;
+                moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
+                      cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], true);
+                break;
+            case 7:
+                currentColor = Color.red;
+                activeCubes = zCoor;
+                currentShape = 6;
+                moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
+                      cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], true);
+                break;
+            default:
+                break;
+        }
     }
 
     public void NextTetrimino()
