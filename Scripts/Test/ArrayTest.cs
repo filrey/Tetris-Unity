@@ -189,101 +189,559 @@ public class ArrayTest : MonoBehaviour
         }
     }
 
-
-    private void rotateClockwise()
+    private void rotateCounterClockwise()
     {
-        int cubeToCheck1;
-        int cubeToCheck2;
-        int currState = shapeState;
-        int[,] subBoard = new int[3,3];
-        int rootCube = board[activeCubes[0], activeCubes[1]];
-        bool collision = false;
-
-        if (currentShape ==5)
+        if (currentShape == 5)
         {
+            int[] subBoardX = new int[3];
+            int[] subBoardY = new int[3];
+            int activeX = activeCubes[0];
+            int activeY = activeCubes[1];
+
             switch (shapeState)
             {
                 case 0:
-                    subBoard[0, 0] = rootCube;
-                    subBoard[1, 0] = rootCube + 20;
-                    subBoard[2, 0] = rootCube + 40;
 
-                    subBoard[0, 1] = rootCube + 1;
-                    subBoard[1, 1] = rootCube + 21;
-                    subBoard[2, 1] = rootCube + 41;
+                    clearActiveCubes();
 
-                    subBoard[0, 2] = rootCube + 2;
-                    subBoard[1, 2] = rootCube + 22;
-                    subBoard[2, 2] = rootCube + 42;
+                    subBoardX[0] = activeX;
+                    subBoardX[1] = activeX + 1;
+                    subBoardX[2] = activeX + 2;
 
-                    cubeToCheck1 = subBoard[1, 2];
-                    cubeToCheck2 = subBoard[2, 1];
+                    subBoardY[0] = activeY;
+                    subBoardY[1] = activeY + 1;
+                    subBoardY[2] = activeY + 2;
 
-                    rotateTetrimino(subBoard, cubeToCheck1, cubeToCheck2);
-                    Debug.Log("T Rotation to 1");
+                    activeCubes[0] = subBoardX[1];
+                    activeCubes[1] = subBoardY[0];
+                    activeCubes[2] = subBoardX[1];
+                    activeCubes[3] = subBoardY[1];
+                    activeCubes[4] = subBoardX[1];
+                    activeCubes[5] = subBoardY[2];
+                    activeCubes[6] = subBoardX[0];
+                    activeCubes[7] = subBoardY[1];
+
+                    shapeState = 3;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
+
                     break;
-
                 case 1:
-                    subBoard[0, 0] = rootCube - 20;
-                    subBoard[1, 0] = rootCube;
-                    subBoard[2, 0] = rootCube + 20;
+                    clearActiveCubes();
 
-                    subBoard[0, 1] = subBoard[0, 0] + 1;
-                    subBoard[1, 1] = subBoard[1, 0] + 1;
-                    subBoard[2, 1] = subBoard[2, 0] + 1;
+                    subBoardX[0] = activeX - 1;
+                    subBoardX[1] = activeX;
+                    subBoardX[2] = activeX + 1;
 
-                    subBoard[0, 2] = subBoard[0, 1] + 1;
-                    subBoard[1, 2] = subBoard[1, 1] + 1;
-                    subBoard[2, 2] = subBoard[2, 1] + 1;
+                    subBoardY[0] = activeY;
+                    subBoardY[1] = activeY + 1;
+                    subBoardY[2] = activeY + 2;
 
-                    cubeToCheck1 = subBoard[0, 2];
-                    cubeToCheck2 = subBoard[2, 2];
+                    activeCubes[0] = subBoardX[0];
+                    activeCubes[1] = subBoardY[0];
+                    activeCubes[2] = subBoardX[1];
+                    activeCubes[3] = subBoardY[0];
+                    activeCubes[4] = subBoardX[2];
+                    activeCubes[5] = subBoardY[0];
+                    activeCubes[6] = subBoardX[1];
+                    activeCubes[7] = subBoardY[1];
 
-                    rotateTetrimino(subBoard, cubeToCheck1, cubeToCheck2);
-                    Debug.Log("T Rotation to 2");
+                    shapeState = 0;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
                     break;
                 case 2:
-                    subBoard[0, 0] = rootCube -42;
-                    subBoard[1, 0] = rootCube -41;
-                    subBoard[2, 0] = rootCube -40;
+                    clearActiveCubes();
 
-                    subBoard[0, 1] = rootCube -22;
-                    subBoard[1, 1] = rootCube -21;
-                    subBoard[2, 1] = rootCube -20;
+                    subBoardX[0] = activeX - 2;
+                    subBoardX[1] = activeX - 1;
+                    subBoardX[2] = activeX;
 
-                    subBoard[0, 2] = rootCube -2;
-                    subBoard[1, 2] = rootCube -1;
-                    subBoard[2, 2] = rootCube;
+                    subBoardY[0] = activeY - 2;
+                    subBoardY[1] = activeY - 1;
+                    subBoardY[2] = activeY;
 
-                    cubeToCheck1 = subBoard[1, 0];
-                    cubeToCheck2 = subBoard[0, 1];
+                    activeCubes[0] = subBoardX[1];
+                    activeCubes[1] = subBoardY[0];
+                    activeCubes[2] = subBoardX[1];
+                    activeCubes[3] = subBoardY[1];
+                    activeCubes[4] = subBoardX[1];
+                    activeCubes[5] = subBoardY[2];
+                    activeCubes[6] = subBoardX[2];
+                    activeCubes[7] = subBoardY[1];
 
-                    rotateTetrimino(subBoard, cubeToCheck1, cubeToCheck2);
-                    Debug.Log("T Rotation to 3");
+                    shapeState = 1;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
                     break;
                 case 3:
-                    subBoard[0, 0] = rootCube - 20;
-                    subBoard[1, 0] = rootCube;
-                    subBoard[2, 0] = rootCube + 20;
+                    clearActiveCubes();
 
-                    subBoard[0, 1] = subBoard[0, 0] + 1;
-                    subBoard[1, 1] = subBoard[1, 0] + 1;
-                    subBoard[2, 1] = subBoard[2, 0] + 1;
+                    subBoardX[0] = activeX - 1;
+                    subBoardX[1] = activeX;
+                    subBoardX[2] = activeX + 1;
 
-                    subBoard[0, 2] = subBoard[0, 1] + 1;
-                    subBoard[1, 2] = subBoard[1, 1] + 1;
-                    subBoard[2, 2] = subBoard[2, 1] + 1;
+                    subBoardY[0] = activeY;
+                    subBoardY[1] = activeY + 1;
+                    subBoardY[2] = activeY + 2;
 
-                    cubeToCheck1 = subBoard[0, 0];
-                    cubeToCheck2 = subBoard[2, 0];
+                    activeCubes[0] = subBoardX[2];
+                    activeCubes[1] = subBoardY[2];
+                    activeCubes[2] = subBoardX[1];
+                    activeCubes[3] = subBoardY[2];
+                    activeCubes[4] = subBoardX[0];
+                    activeCubes[5] = subBoardY[2];
+                    activeCubes[6] = subBoardX[1];
+                    activeCubes[7] = subBoardY[1];
 
-                    rotateTetrimino(subBoard, cubeToCheck1, cubeToCheck2);
-                    Debug.Log("T Rotation to 0");
+                    shapeState = 2;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
                     break;
                 default:
                     break;
             }
         }
+    }
+
+    private void rotateClockwise()
+    {
+        if (currentShape==0)
+        {
+            int[] subBoardX = new int[4];
+            int[] subBoardY = new int[4];
+            int activeX = activeCubes[0];
+            int activeY = activeCubes[1];
+
+            switch (shapeState)
+            {
+                case 0:
+                    clearActiveCubes();
+
+                    subBoardX[0] = activeX;
+                    subBoardX[1] = activeX + 1;
+                    subBoardX[2] = activeX + 2;
+                    subBoardX[3] = activeX + 3;
+
+
+                    subBoardY[0] = activeY;
+                    subBoardY[1] = activeY + 1;
+                    subBoardY[2] = activeY + 2;
+                    subBoardY[3] = activeY + 3;
+
+                    reasignActiveCubes(1,3,1,2,1,1,1,0,subBoardX,subBoardY);
+
+                    shapeState = 1;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]+ subBoardX[3]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]+ subBoardY[3]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
+                    break;
+                case 1:
+                    clearActiveCubes();
+
+                    subBoardX[0] = activeX - 1;
+                    subBoardX[1] = activeX;
+                    subBoardX[2] = activeX + 1;
+                    subBoardX[3] = activeX + 2;
+
+
+                    subBoardY[0] = activeY - 3;
+                    subBoardY[1] = activeY - 2;
+                    subBoardY[2] = activeY - 1;
+                    subBoardY[3] = activeY;
+
+                    reasignActiveCubes(0, 1, 1, 1, 2, 1, 3, 1, subBoardX, subBoardY);
+
+                    shapeState = 0;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2] + subBoardX[3]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2] + subBoardY[3]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (currentShape == 1)
+        {
+            int[] subBoardX = new int[3];
+            int[] subBoardY = new int[3];
+            int activeX = activeCubes[0];
+            int activeY = activeCubes[1];
+
+            switch (shapeState){
+                case 0:
+                    clearActiveCubes();
+
+                    subBoardX[0] = activeX;
+                    subBoardX[1] = activeX + 1;
+                    subBoardX[2] = activeX + 2;
+
+                    subBoardY[0] = activeY;
+                    subBoardY[1] = activeY + 1;
+                    subBoardY[2] = activeY + 2;
+
+                    reasignActiveCubes(2, 2, 1, 2, 1, 1, 1, 0, subBoardX, subBoardY);
+
+                    shapeState = 1;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
+                    break;
+                case 1:
+                    clearActiveCubes();
+
+                    subBoardX[0] = activeX - 2;
+                    subBoardX[1] = activeX - 1;
+                    subBoardX[2] = activeX;
+
+                    subBoardY[0] = activeY - 2;
+                    subBoardY[1] = activeY - 1;
+                    subBoardY[2] = activeY;
+
+                    reasignActiveCubes(2, 1, 2, 2, 1, 2, 0, 2, subBoardX, subBoardY);
+
+                    shapeState = 2;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
+                    break;
+                case 2:
+                    clearActiveCubes();
+
+                    subBoardX[0] = activeX - 2;
+                    subBoardX[1] = activeX - 1;
+                    subBoardX[2] = activeX;
+
+                    subBoardY[0] = activeY - 1;
+                    subBoardY[1] = activeY;
+                    subBoardY[2] = activeY + 1;
+
+                    reasignActiveCubes(0, 0, 1, 0, 1, 1, 1, 2, subBoardX, subBoardY);
+
+                    shapeState = 3;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
+                    break;
+                case 3:
+                    clearActiveCubes();
+
+                    subBoardX[0] = activeX;
+                    subBoardX[1] = activeX + 1;
+                    subBoardX[2] = activeX + 2;
+
+                    subBoardY[0] = activeY;
+                    subBoardY[1] = activeY + 1;
+                    subBoardY[2] = activeY + 2;
+
+                    reasignActiveCubes(0, 0, 1, 0, 2, 0, 0, 1, subBoardX, subBoardY);
+
+                    shapeState = 0;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (currentShape == 2)
+        {
+            int[] subBoardX = new int[3];
+            int[] subBoardY = new int[3];
+            int activeX = activeCubes[0];
+            int activeY = activeCubes[1];
+
+            switch (shapeState){
+                case 0:
+                    clearActiveCubes();
+
+                    subBoardX[0] = activeX;
+                    subBoardX[1] = activeX + 1;
+                    subBoardX[2] = activeX + 2;
+
+                    subBoardY[0] = activeY;
+                    subBoardY[1] = activeY + 1;
+                    subBoardY[2] = activeY + 2;
+
+                    reasignActiveCubes(2, 0, 1, 0, 1, 1, 1, 2, subBoardX, subBoardY);
+
+                    shapeState = 1;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
+                    break;
+                case 1:
+                    clearActiveCubes();
+
+                    subBoardX[0] = activeX - 2;
+                    subBoardX[1] = activeX - 1;
+                    subBoardX[2] = activeX;
+
+                    subBoardY[0] = activeY;
+                    subBoardY[1] = activeY + 1;
+                    subBoardY[2] = activeY + 2;
+
+                    reasignActiveCubes(2, 2, 1, 2, 0, 2, 0, 1, subBoardX, subBoardY);
+
+                    shapeState = 2;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
+                    break;
+                case 2:
+                    clearActiveCubes();
+
+                    subBoardX[0] = activeX - 2;
+                    subBoardX[1] = activeX - 1;
+                    subBoardX[2] = activeX;
+
+                    subBoardY[0] = activeY - 2;
+                    subBoardY[1] = activeY - 1;
+                    subBoardY[2] = activeY;
+
+                    reasignActiveCubes(0, 2, 1, 2, 1, 1, 1, 0, subBoardX, subBoardY);
+
+                    shapeState = 3;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
+                    break;
+                case 3:
+                    clearActiveCubes();
+
+                    subBoardX[0] = activeX;
+                    subBoardX[1] = activeX + 1;
+                    subBoardX[2] = activeX + 2;
+
+                    subBoardY[0] = activeY - 2;
+                    subBoardY[1] = activeY - 1;
+                    subBoardY[2] = activeY;
+
+                    reasignActiveCubes(0, 1, 1, 1, 2, 1, 2, 2, subBoardX, subBoardY);
+
+                    shapeState = 0;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (currentShape == 3)
+        {
+
+        }
+
+        if (currentShape == 4)
+        {
+
+        }
+        if (currentShape ==5)
+        {
+            int[] subBoardX = new int[3];
+            int[] subBoardY = new int[3];
+            int activeX = activeCubes[0];
+            int activeY = activeCubes[1];
+
+            switch (shapeState)
+            {
+                case 0:
+
+                    clearActiveCubes();
+
+                    subBoardX[0] = activeX;
+                    subBoardX[1] = activeX+ 1;
+                    subBoardX[2] = activeX+ 2;
+
+                    subBoardY[0] = activeY;
+                    subBoardY[1] = activeY+ 1;
+                    subBoardY[2] = activeY+ 2;
+
+                    activeCubes[0] = subBoardX[1];
+                    activeCubes[1] = subBoardY[0];
+                    activeCubes[2] = subBoardX[1];
+                    activeCubes[3] = subBoardY[1];
+                    activeCubes[4] = subBoardX[1];
+                    activeCubes[5] = subBoardY[2];
+                    activeCubes[6] = subBoardX[2];
+                    activeCubes[7] = subBoardY[1];
+
+                    shapeState = 1;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
+
+                    break;
+                case 1:
+                    clearActiveCubes();
+
+                    subBoardX[0] = activeX - 1;
+                    subBoardX[1] = activeX;
+                    subBoardX[2] = activeX + 1;
+
+                    subBoardY[0] = activeY;
+                    subBoardY[1] = activeY + 1;
+                    subBoardY[2] = activeY + 2;
+
+                    activeCubes[0] = subBoardX[2];
+                    activeCubes[1] = subBoardY[2];
+                    activeCubes[2] = subBoardX[1];
+                    activeCubes[3] = subBoardY[2];
+                    activeCubes[4] = subBoardX[0];
+                    activeCubes[5] = subBoardY[2];
+                    activeCubes[6] = subBoardX[1];
+                    activeCubes[7] = subBoardY[1];
+
+                    shapeState = 2;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
+                    break;
+                case 2:
+                    clearActiveCubes();
+
+                    subBoardX[0] = activeX - 2;
+                    subBoardX[1] = activeX - 1;
+                    subBoardX[2] = activeX;
+
+                    subBoardY[0] = activeY - 2;
+                    subBoardY[1] = activeY - 1;
+                    subBoardY[2] = activeY;
+
+                    activeCubes[0] = subBoardX[1];
+                    activeCubes[1] = subBoardY[0];
+                    activeCubes[2] = subBoardX[1];
+                    activeCubes[3] = subBoardY[1];
+                    activeCubes[4] = subBoardX[1];
+                    activeCubes[5] = subBoardY[2];
+                    activeCubes[6] = subBoardX[0];
+                    activeCubes[7] = subBoardY[1];
+
+                    shapeState = 3;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
+                    break;
+                case 3:
+                    clearActiveCubes();
+
+                    subBoardX[0] = activeX - 1;
+                    subBoardX[1] = activeX;
+                    subBoardX[2] = activeX + 1;
+
+                    subBoardY[0] = activeY;
+                    subBoardY[1] = activeY + 1;
+                    subBoardY[2] = activeY + 2;
+
+                    activeCubes[0] = subBoardX[0];
+                    activeCubes[1] = subBoardY[0];
+                    activeCubes[2] = subBoardX[1];
+                    activeCubes[3] = subBoardY[0];
+                    activeCubes[4] = subBoardX[2];
+                    activeCubes[5] = subBoardY[0];
+                    activeCubes[6] = subBoardX[1];
+                    activeCubes[7] = subBoardY[1];
+
+                    shapeState = 0;
+
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]);
+                    Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
+
+                    colorActiveCubes();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void reasignActiveCubes(int v1, int v2, int v3, int v4, int v5, int v6, int v7, int v8, int[] subBoardX, int[] subBoardY)
+    {
+        activeCubes[0] = subBoardX[v1];
+        activeCubes[1] = subBoardY[v2];
+        activeCubes[2] = subBoardX[v3];
+        activeCubes[3] = subBoardY[v4];
+        activeCubes[4] = subBoardX[v5];
+        activeCubes[5] = subBoardY[v6];
+        activeCubes[6] = subBoardX[v7];
+        activeCubes[7] = subBoardY[v8];
+    }
+
+    private void colorActiveCubes()
+    {
+        cube[board[activeCubes[0], activeCubes[1]]].GetComponent<Renderer>().material.color = Color.red;
+        cube[board[activeCubes[2], activeCubes[3]]].GetComponent<Renderer>().material.color = Color.yellow;
+        cube[board[activeCubes[4], activeCubes[5]]].GetComponent<Renderer>().material.color = Color.blue;
+        cube[board[activeCubes[6], activeCubes[7]]].GetComponent<Renderer>().material.color = Color.green;
+    }
+
+    private void clearActiveCubes()
+    {
+        cube[board[activeCubes[0], activeCubes[1]]].GetComponent<Renderer>().material = defaultMat;
+        cube[board[activeCubes[2], activeCubes[3]]].GetComponent<Renderer>().material = defaultMat;
+        cube[board[activeCubes[4], activeCubes[5]]].GetComponent<Renderer>().material = defaultMat;
+        cube[board[activeCubes[6], activeCubes[7]]].GetComponent<Renderer>().material = defaultMat;
     }
 
     private void rotateTetrimino(int[,] subBoard, int cubeToCheck1, int cubeToCheck2)
@@ -436,25 +894,6 @@ public class ArrayTest : MonoBehaviour
         }
     }
 
-
-    private bool checkRotationCollision(int[] cubeToCheck1, int[] cubeToCheck2)
-    {
-        int cube1 = occupied[board[cubeToCheck1[0], cubeToCheck1[1]]];
-        int cube2 = occupied[board[cubeToCheck2[0], cubeToCheck2[1]]];
-
-        if (cube1 == 1 || cube2 == 1)
-        {
-            return true;
-        }
-        else
-            return false;
-
-    }
-
-    private void rotateCounterClockwise()
-    {
-        throw new NotImplementedException();
-    }
 
     private void showOccupiedCubes()
     {
@@ -759,10 +1198,10 @@ public class ArrayTest : MonoBehaviour
     {
         if (useColor)
         {
-            cube1.GetComponent<Renderer>().material.color = currentColor;
-            cube2.GetComponent<Renderer>().material.color = currentColor;
-            cube3.GetComponent<Renderer>().material.color = currentColor;
-            cube4.GetComponent<Renderer>().material.color = currentColor;
+            cube1.GetComponent<Renderer>().material.color = Color.red;
+            cube2.GetComponent<Renderer>().material.color = Color.yellow;
+            cube3.GetComponent<Renderer>().material.color = Color.blue;
+            cube4.GetComponent<Renderer>().material.color = Color.green;
         }
         else
         {
