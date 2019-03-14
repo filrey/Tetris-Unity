@@ -1558,6 +1558,23 @@ public class ArrayTest : MonoBehaviour
                 cubeRow[i].GetComponent<Renderer>().material = defaultMat;
                 occupied[board[i, rowToCheck]] = 0;
             }
+            dropStack(rowToCheck);
+        }
+    }
+
+    private void dropStack(int row)
+    {
+        for (int j = row; j > 0; j--)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                cube[board[i, j]].GetComponent<Renderer>().material.color = cube[board[i, j - 1]].GetComponent<Renderer>().material.color;
+                cube[board[i, j - 1]].GetComponent<Renderer>().material = defaultMat;
+
+                occupied[board[i, j]] = occupied[board[i, j-1]];
+                // Debug.Log("Row is:" + row);
+
+            }
         }
     }
 
