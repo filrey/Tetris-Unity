@@ -4,17 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class Score : MonoBehaviour
+public class LinesCleared : MonoBehaviour
 {
-    public int score = 100;
-    public Text scoreText;
+    public int lines = 0;
+    public Text linesText;
 
     // Start is called before the first frame update
     void Start()
     {
         GameController.Instance.SubscribeScriptToGameEventUpdates(this);
-        GameController.Instance.PlayerScoreScriptToGC(this);
-        scoreText.text = score.ToString();
+        GameController.Instance.LinesClearedScriptToGC(this);
+
+        linesText.text = lines.ToString();
     }
 
     // Update is called once per frame
@@ -23,61 +24,54 @@ public class Score : MonoBehaviour
 
     }
 
-    public void AddToScore(int linesCleared)
+    public void AddToLines(int linesCleared)
     {
-        int points=0;
+        int points = 0;
 
         switch (linesCleared)
         {
             case 1:
-                points = 100;
+                points = 1;
                 break;
             case 2:
-                points = 300;
+                points = 2;
                 break;
             case 3:
-                points = 500;
+                points = 3;
                 break;
             case 4:
-                points = 800;
-                break;
-            case 5:
-                points = 1200;
+                points = 4;
                 break;
             default:
                 break;
         }
-        score += points;
-        scoreText.text = score.ToString();
+        lines += points;
+        linesText.text = lines.ToString();
 
     }
 
     void SingleLineClear()
     {
-        AddToScore(1);
+        AddToLines(1);
     }
 
     void DoubleLineClear()
     {
-        AddToScore(2);
+        AddToLines(2);
     }
 
     void TripleLineClear()
     {
-        AddToScore(3);
+        AddToLines(3);
     }
 
     void QuadLineClear()
     {
-        AddToScore(4);
+        AddToLines(4);
     }
 
-    void ConsequtiveTetris()
+    void Clearlines()
     {
-        AddToScore(5);
-    }
-    void ClearScore()
-    {
-        score = 0;
+        lines = 0;
     }
 }

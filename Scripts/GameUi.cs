@@ -7,13 +7,13 @@ public class GameUi : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameController.Instance.subscribeScriptToGameEventUpdates(this);
+        GameController.Instance.SubscribeScriptToGameEventUpdates(this);
     }
 
-    void OnDestroy()
-    {
-        GameController.Instance.deSubscribeScriptToGameEventUpdates(this);
-    }
+    //void OnDestroy()
+    //{
+    //    GameController.Instance.deSubscribeScriptToGameEventUpdates(this);
+    //}
 
     //This method will be automatically called when the player passes an importnat important in the game
     void gameEventUpdated()

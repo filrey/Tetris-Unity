@@ -1,13 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
     public List<MonoBehaviour> eventSubscribedScripts = new List<MonoBehaviour>();
+    public MonoBehaviour playerScore;
+    public MonoBehaviour linesCleared;
+
     public int gameEventID = 0;
-    public int playerScore = 100;
-    public int linesCleared = 0;
+    //public int playerScore;
+    //public int linesCleared = 0;
     public int level = 0;
     public int speed = 0;
 
@@ -35,21 +39,25 @@ public class GameController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         Invoke("playerPassedEvent", 2f);
         Invoke("playerPassedEvent", 4f);
-
     }
 
+
     //// Update is called once per frame
-    //void Update()
-    //{
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.P))
+        {
+            SingleLineClear();
 
-    //}
+        }
+    }
 
-    public void subscribeScriptToGameEventUpdates(MonoBehaviour pScript)
+    public void SubscribeScriptToGameEventUpdates(MonoBehaviour pScript)
     {
         eventSubscribedScripts.Add(pScript);
     }
 
-    public void deSubscribeScriptToGameEventUpdates(MonoBehaviour pScript)
+    public void DeSubscribeScriptToGameEventUpdates(MonoBehaviour pScript)
     {
         while (eventSubscribedScripts.Contains(pScript))
         {
@@ -57,12 +65,29 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void LinesClearedScriptToGC(MonoBehaviour pScript)
+    {
+        linesCleared = pScript;
+    }
+
+    public void PlayerScoreScriptToGC(MonoBehaviour pScript)
+    {
+        playerScore = pScript;
+    }
+
     public void playerPassedEvent()
     {
         gameEventID++;
-        foreach(MonoBehaviour _script in eventSubscribedScripts)
+        foreach (MonoBehaviour _script in eventSubscribedScripts)
         {
             _script.Invoke("gameEventUpdated", 0);
+            Debug.Log(_script.name + " is loaded");
         }
+    }
+
+    public void SingleLineClear()
+    {
+        playerScore.Invoke("SingleLineClear", 0);
+        linesCleared.Invoke("SingleLineClear", 0);
     }
 }

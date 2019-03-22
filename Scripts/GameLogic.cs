@@ -5,8 +5,9 @@ using UnityEngine;
 using Random = System.Random;
 
 
-public class ArrayTest : MonoBehaviour
+public class GameLogic : MonoBehaviour
 {
+    public Score playerScore;
     GameObject Root;
     GameObject[] cube = new GameObject[200];
     int[,] board = new int[10, 20];
@@ -41,18 +42,18 @@ public class ArrayTest : MonoBehaviour
         }
 
         //First Block is made
-        moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]], 
-                      cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]],true);
+        moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
+                      cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], true);
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        
+
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            bool collision = CheckCollision(activeCubes[1], activeCubes[3], activeCubes[5], activeCubes[7],0);
+            bool collision = CheckCollision(activeCubes[1], activeCubes[3], activeCubes[5], activeCubes[7], 0);
             if (!collision)
             {
                 moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
@@ -131,11 +132,11 @@ public class ArrayTest : MonoBehaviour
         }
 
         // Testing: Immediately lock tetrimino on pressing A
-        if(Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             lockTetrimino(board[activeCubes[0], activeCubes[1]], board[activeCubes[2], activeCubes[3]], board[activeCubes[4], activeCubes[5]], board[activeCubes[6], activeCubes[7]]);
             NextTetrimino();
-            
+
         }
 
         if (Input.GetKeyDown(KeyCode.S))
@@ -317,7 +318,7 @@ public class ArrayTest : MonoBehaviour
                     subBoardY[2] = activeY + 1;
 
                     reasignActiveCubes(2, 2, 1, 2, 1, 1, 1, 0, subBoardX, subBoardY);
-                    
+
 
                     shapeState = 1;
 
@@ -339,7 +340,7 @@ public class ArrayTest : MonoBehaviour
                     subBoardY[2] = activeY + 2;
 
                     reasignActiveCubes(2, 1, 2, 2, 1, 2, 0, 2, subBoardX, subBoardY);
-                    
+
 
                     shapeState = 2;
 
@@ -695,7 +696,7 @@ public class ArrayTest : MonoBehaviour
     private void rotateClockwise()
     {
         // Rotations for i Block
-        if (currentShape==0)
+        if (currentShape == 0)
         {
             int[] subBoardX = new int[4];
             int[] subBoardY = new int[4];
@@ -718,12 +719,12 @@ public class ArrayTest : MonoBehaviour
                     subBoardY[2] = activeY + 2;
                     subBoardY[3] = activeY + 3;
 
-                    reasignActiveCubes(1,3,1,2,1,1,1,0,subBoardX,subBoardY);
+                    reasignActiveCubes(1, 3, 1, 2, 1, 1, 1, 0, subBoardX, subBoardY);
 
                     shapeState = 1;
 
-                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2]+ subBoardX[3]);
-                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2]+ subBoardY[3]);
+                    Debug.Log("subBoardX: " + subBoardX[0] + subBoardX[1] + subBoardX[2] + subBoardX[3]);
+                    Debug.Log("subBoardY: " + subBoardY[0] + subBoardY[1] + subBoardY[2] + subBoardY[3]);
                     Debug.Log("Activecubes [0-7]: " + activeCubes[0] + activeCubes[1] + activeCubes[2] + activeCubes[3] + activeCubes[4] + activeCubes[5] + activeCubes[6] + activeCubes[7]);
 
                     colorActiveCubes();
@@ -764,7 +765,8 @@ public class ArrayTest : MonoBehaviour
             int activeX = activeCubes[0];
             int activeY = activeCubes[1];
 
-            switch (shapeState){
+            switch (shapeState)
+            {
                 case 0:
                     clearActiveCubes();
 
@@ -861,7 +863,8 @@ public class ArrayTest : MonoBehaviour
             int activeX = activeCubes[0];
             int activeY = activeCubes[1];
 
-            switch (shapeState){
+            switch (shapeState)
+            {
                 case 0:
                     clearActiveCubes();
 
@@ -1007,7 +1010,7 @@ public class ArrayTest : MonoBehaviour
             }
         }
         //Rotations for t block
-        if (currentShape ==5)
+        if (currentShape == 5)
         {
             int[] subBoardX = new int[3];
             int[] subBoardY = new int[3];
@@ -1021,12 +1024,12 @@ public class ArrayTest : MonoBehaviour
                     clearActiveCubes();
 
                     subBoardX[0] = activeX;
-                    subBoardX[1] = activeX+ 1;
-                    subBoardX[2] = activeX+ 2;
+                    subBoardX[1] = activeX + 1;
+                    subBoardX[2] = activeX + 2;
 
                     subBoardY[0] = activeY;
-                    subBoardY[1] = activeY+ 1;
-                    subBoardY[2] = activeY+ 2;
+                    subBoardY[1] = activeY + 1;
+                    subBoardY[2] = activeY + 2;
 
                     activeCubes[0] = subBoardX[1];
                     activeCubes[1] = subBoardY[0];
@@ -1236,18 +1239,27 @@ public class ArrayTest : MonoBehaviour
     private bool CheckCollision(int cubeCoor1, int cubeCoor2, int cubeCoor3, int cubeCoor4, int direction)
     {
         int isCubeOccupied1, isCubeOccupied2, isCubeOccupied3, isCubeOccupied4;
-        if(direction == 0)
+        if (direction == 0)
         {
-        if (activeCubes[1] != 19 && activeCubes[3] != 19 && activeCubes[5] != 19 && activeCubes[7] != 19)
-        {
+            if (activeCubes[1] != 19 && activeCubes[3] != 19 && activeCubes[5] != 19 && activeCubes[7] != 19)
+            {
                 cubeCoor1++; cubeCoor2++; cubeCoor3++; cubeCoor4++;
                 isCubeOccupied1 = occupied[board[activeCubes[0], cubeCoor1]];
                 isCubeOccupied2 = occupied[board[activeCubes[2], cubeCoor2]];
                 isCubeOccupied3 = occupied[board[activeCubes[4], cubeCoor3]];
                 isCubeOccupied4 = occupied[board[activeCubes[6], cubeCoor4]];
 
-            // IF Locked tetrimino exists when moving down then collision is true and current tetrimino should be locked
+                // IF Locked tetrimino exists when moving down then collision is true and current tetrimino should be locked
                 if (isCubeOccupied1 == 1 || isCubeOccupied2 == 1 || isCubeOccupied3 == 1 || isCubeOccupied4 == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            if (activeCubes[1] == 19 || activeCubes[3] == 19 || activeCubes[5] == 19 || activeCubes[7] == 19)
             {
                 return true;
             }
@@ -1255,15 +1267,6 @@ public class ArrayTest : MonoBehaviour
             {
                 return false;
             }
-        }
-        if (activeCubes[1] == 19 || activeCubes[3] == 19 || activeCubes[5] == 19 || activeCubes[7] == 19)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
         }
 
         if (direction == 1)
@@ -1500,7 +1503,7 @@ public class ArrayTest : MonoBehaviour
             default:
                 break;
         }
-        
+
     }
 
     private void lockTetrimino(int cube1, int cube2, int cube3, int cube4)
@@ -1510,9 +1513,9 @@ public class ArrayTest : MonoBehaviour
         occupied[cube3] = 1;
         occupied[cube4] = 1;
 
-        Debug.Log("Locked: ["+cube1+"]"+" ["+cube2+"]" + " [" + cube3+"]" + " [" + cube4+"]");
+        Debug.Log("Locked: [" + cube1 + "]" + " [" + cube2 + "]" + " [" + cube3 + "]" + " [" + cube4 + "]");
 
-        checkForLineClear(cube1,cube2,cube3,cube4);
+        checkForLineClear(cube1, cube2, cube3, cube4);
 
         // For testing Purposes locked tetriminos are turned grey
         //cube[cube1].GetComponent<Renderer>().material.color = Color.grey;
@@ -1551,7 +1554,6 @@ public class ArrayTest : MonoBehaviour
             }
         }
 
-        // if count is 10 then row is filled we clear and drop the stack
         if (count == 10)
         {
             for (int i = 0; i < cubeRow.Length; i++)
@@ -1560,6 +1562,7 @@ public class ArrayTest : MonoBehaviour
                 occupied[board[i, rowToCheck]] = 0;
             }
             dropStack(rowToCheck);
+            GameController.Instance.SingleLineClear();
         }
     }
 
@@ -1572,7 +1575,7 @@ public class ArrayTest : MonoBehaviour
                 cube[board[i, j]].GetComponent<Renderer>().material.color = cube[board[i, j - 1]].GetComponent<Renderer>().material.color;
                 cube[board[i, j - 1]].GetComponent<Renderer>().material = defaultMat;
 
-                occupied[board[i, j]] = occupied[board[i, j-1]];
+                occupied[board[i, j]] = occupied[board[i, j - 1]];
                 // Debug.Log("Row is:" + row);
 
             }
