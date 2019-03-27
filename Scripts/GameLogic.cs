@@ -1532,6 +1532,7 @@ public class GameLogic : MonoBehaviour
         clearLine(5);
         clearLine(7);
 
+
     }
 
     private void clearLine(int v)
