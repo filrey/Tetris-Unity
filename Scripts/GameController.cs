@@ -8,10 +8,9 @@ public class GameController : MonoBehaviour
     public List<MonoBehaviour> eventSubscribedScripts = new List<MonoBehaviour>();
     public MonoBehaviour playerScore;
     public MonoBehaviour linesCleared;
-    public MonoBehaviour board;
+    public MonoBehaviour gameUI;
     public MonoBehaviour speed;
-    //public MonoBehaviour tetrimino;
-    //public MonoBehaviour movement;
+    public MonoBehaviour level;
     public MonoBehaviour gameLogic;
 
 
@@ -19,9 +18,8 @@ public class GameController : MonoBehaviour
 
 
     public int gameEventID = 0;
-    //public int playerScore;
     //public int linesCleared = 0;
-    public int level = 0;
+    //public int level = 0;
     public float gameSpeed = 1.0f;
 
     private static GameController instance;
@@ -90,20 +88,27 @@ public class GameController : MonoBehaviour
         playerScore = pScript;
     }
 
-    public void BoardScriptToGC(MonoBehaviour pScript)
+    public void GameUIScriptToGC(MonoBehaviour pScript)
     {
-        board = pScript;
+        gameUI = pScript;
     }
+
 
     public void SpeedScriptToGC(MonoBehaviour pScript)
     {
         speed = pScript;
     }
 
+    public void LevelScriptToGC(MonoBehaviour pScript)
+    {
+        level = pScript;
+    }
+
     public void GameLogicScriptToGC(MonoBehaviour pScript)
     {
         gameLogic = pScript;
     }
+
 
     public void playerPassedEvent()
     {
@@ -119,6 +124,27 @@ public class GameController : MonoBehaviour
     {
         playerScore.Invoke("SingleLineClear", 0);
         linesCleared.Invoke("SingleLineClear", 0);
+
+    }
+
+    public void DoubleLineClear()
+    {
+        playerScore.Invoke("DoubleLineClear", 0);
+        linesCleared.Invoke("DoubleLineClear", 0);
+
+    }
+
+    public void TripleLineClear()
+    {
+        playerScore.Invoke("TripleLineClear", 0);
+        linesCleared.Invoke("TripleLineClear", 0);
+
+    }
+
+    public void QuadLineClear()
+    {
+        playerScore.Invoke("QuadLineClear", 0);
+        linesCleared.Invoke("QuadLineClear", 0);
 
     }
 

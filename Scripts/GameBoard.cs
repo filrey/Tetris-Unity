@@ -9,8 +9,8 @@ public class GameBoard : LinesCleared
     // Start is called before the first frame update
     void Start()
     {
-        GameController.Instance.SubscribeScriptToGameEventUpdates(this);
-        GameController.Instance.BoardScriptToGC(this);
+        //GameController.Instance.SubscribeScriptToGameEventUpdates(this);
+        //GameController.Instance.BoardScriptToGC(this);
     }
 
     // Update is called once per frame

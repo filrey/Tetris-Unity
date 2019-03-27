@@ -8,6 +8,8 @@ public class GameUi : MonoBehaviour
     void Start()
     {
         GameController.Instance.SubscribeScriptToGameEventUpdates(this);
+        GameController.Instance.GameUIScriptToGC(this);
+
     }
 
     //void OnDestroy()

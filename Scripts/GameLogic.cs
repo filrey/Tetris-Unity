@@ -1527,10 +1527,11 @@ public class GameLogic : MonoBehaviour
 
     private void checkForLineClear(int cube1, int cube2, int cube3, int cube4)
     {
-        clearLine(1);
-        clearLine(3);
-        clearLine(5);
-        clearLine(7);
+        //clearLine(1);
+        //clearLine(3);
+        //clearLine(5);
+        //clearLine(7);
+        scanAllRows();
 
 
     }
@@ -1565,6 +1566,61 @@ public class GameLogic : MonoBehaviour
             }
             dropStack(rowToCheck);
             GameController.Instance.SingleLineClear();
+        }
+    }
+
+    private void scanAllRows()
+    {
+        int[] occupiedRow = new int[10];
+        int count = 0;
+        int linesCleared = 0;
+        GameObject[] cubeRow = new GameObject[10];
+
+        for (int j = 0; j < 20; j++)
+        {
+            count = 0;
+            for (int i = 0; i < cubeRow.Length; i++)
+            {
+                cubeRow[i] = cube[board[i, j]];
+                occupiedRow[i] = occupied[board[i, j]];
+            }
+
+            for (int i = 0; i < occupiedRow.Length; i++)
+            {
+                if (occupiedRow[i] == 1)
+                {
+                    count++;
+                }
+            }
+
+            if (count == 10)
+            {
+                for (int i = 0; i < cubeRow.Length; i++)
+                {
+                    cubeRow[i].GetComponent<Renderer>().material = defaultMat;
+                    occupied[board[i, j]] = 0;
+                }
+                dropStack(j);
+                linesCleared++;
+            }
+        }
+
+        switch (linesCleared)
+        {
+            case 1:
+                GameController.Instance.SingleLineClear();
+                break;
+            case 2:
+                GameController.Instance.DoubleLineClear();
+                break;
+            case 3:
+                GameController.Instance.TripleLineClear();
+                break;
+            case 4:
+                GameController.Instance.QuadLineClear();
+                break;
+            default:
+                break;
         }
     }
 

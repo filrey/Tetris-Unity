@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
     public int score = 100;
+    public int currentLevel =1;
     public Text scoreText;
 
     // Start is called before the first frame update
@@ -49,7 +51,56 @@ public class Score : MonoBehaviour
         }
         score += points;
         scoreText.text = score.ToString();
+        CheckChangeLevel();
 
+    }
+
+    private void CheckChangeLevel()
+    {
+        if (score > 1000 && currentLevel != 2)
+        {
+            currentLevel = 2;
+        }
+
+        if (score > 2000 && currentLevel != 3)
+        {
+            currentLevel = 3;
+        }
+
+        if (score > 3000 && currentLevel != 4)
+        {
+            currentLevel = 4;
+        }
+
+        if (score > 4000 && currentLevel != 5)
+        {
+            currentLevel = 5;
+        }
+
+        if (score > 5000 && currentLevel != 6)
+        {
+            currentLevel = 6;
+        }
+
+        if (score > 6000 && currentLevel != 7)
+        {
+            currentLevel = 7;
+        }
+
+        if (score > 7000 && currentLevel != 8)
+        {
+            currentLevel = 8;
+        }
+
+        if (score > 8000 && currentLevel != 9)
+        {
+            currentLevel = 9;
+        }
+
+        if (score > 9000 && currentLevel != 10)
+        {
+            currentLevel = 10;
+        }
     }
 
     void SingleLineClear()
@@ -80,4 +131,5 @@ public class Score : MonoBehaviour
     {
         score = 0;
     }
+
 }
