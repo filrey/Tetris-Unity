@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Level : MonoBehaviour
 {
-    public int level = 1;
+    public int level = 5;
     public Text levelText;
     // Start is called before the first frame update
     void Start()
@@ -21,5 +21,12 @@ public class Level : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void nextLevel()
+    {
+        level++;
+        levelText.text = level.ToString();
+
     }
 }

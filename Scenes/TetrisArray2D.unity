@@ -4107,7 +4107,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0.216457, b: 0.5566038, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -6353,11 +6353,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 721055037}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a4722e48f1822d4dba66f62253c6fe0, type: 3}
+  m_Script: {fileID: 11500000, guid: 425266655a536e64a982ffd1f4cddd85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lines: 0
-  linesText: {fileID: 721055040}
+  level: 1
+  levelText: {fileID: 721055040}
 --- !u!114 &721055040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7297,9 +7297,9 @@ MonoBehaviour:
   playerScore: {fileID: 0}
   linesCleared: {fileID: 0}
   gameUI: {fileID: 0}
-  speed: {fileID: 0}
   level: {fileID: 0}
   gameLogic: {fileID: 0}
+  soundEffects: {fileID: 0}
   gameEventID: 0
   gameSpeed: 1
 --- !u!4 &840608400
@@ -17438,4 +17438,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
+  currentLevel: 1
   scoreText: {fileID: 2143669548}

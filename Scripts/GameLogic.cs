@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = System.Random;
 
 
@@ -52,7 +53,7 @@ public class GameLogic : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.Space))
         {
             bool collision = CheckCollision(activeCubes[1], activeCubes[3], activeCubes[5], activeCubes[7], 0);
             if (!collision)
@@ -77,23 +78,23 @@ public class GameLogic : MonoBehaviour
 
         }
 
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            bool collision = CheckCollision(activeCubes[1], activeCubes[3], activeCubes[5], activeCubes[7], 1);
-            if (!collision)
-            {
-                moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
-                      cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], false);
+        //if (Input.GetKey(KeyCode.UpArrow))
+        //{
+        //    bool collision = CheckCollision(activeCubes[1], activeCubes[3], activeCubes[5], activeCubes[7], 1);
+        //    if (!collision)
+        //    {
+        //        moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
+        //              cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], false);
 
-                activeCubes[1]--;
-                activeCubes[3]--;
-                activeCubes[5]--;
-                activeCubes[7]--;
+        //        activeCubes[1]--;
+        //        activeCubes[3]--;
+        //        activeCubes[5]--;
+        //        activeCubes[7]--;
 
-                moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
-                      cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], true);
-            }
-        }
+        //        moveTetrimino(cube[board[activeCubes[0], activeCubes[1]]], cube[board[activeCubes[2], activeCubes[3]]],
+        //              cube[board[activeCubes[4], activeCubes[5]]], cube[board[activeCubes[6], activeCubes[7]]], true);
+        //    }
+        //}
 
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -145,12 +146,12 @@ public class GameLogic : MonoBehaviour
             showOccupiedCubes();
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             rotateCounterClockwise();
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             rotateClockwise();
         }
@@ -1682,6 +1683,12 @@ public class GameLogic : MonoBehaviour
 
         if (collision)
         {
+            if (activeCubes[1] == 0 || activeCubes[3] == 0 || activeCubes[5] == 0 || activeCubes[7] == 0)
+            {
+                Debug.Log("Game Over!");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+            Debug.Log("Collision at:" + activeCubes[1] + activeCubes[3] + activeCubes[5] + activeCubes[7]);
             lockTetrimino(board[activeCubes[0], activeCubes[1]], board[activeCubes[2], activeCubes[3]], board[activeCubes[4], activeCubes[5]], board[activeCubes[6], activeCubes[7]]);
             NextTetrimino();
         }

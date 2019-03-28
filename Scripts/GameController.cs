@@ -9,9 +9,11 @@ public class GameController : MonoBehaviour
     public MonoBehaviour playerScore;
     public MonoBehaviour linesCleared;
     public MonoBehaviour gameUI;
-    public MonoBehaviour speed;
+    //public MonoBehaviour speed;
     public MonoBehaviour level;
     public MonoBehaviour gameLogic;
+    public MonoBehaviour soundEffects;
+
 
 
 
@@ -93,12 +95,6 @@ public class GameController : MonoBehaviour
         gameUI = pScript;
     }
 
-
-    public void SpeedScriptToGC(MonoBehaviour pScript)
-    {
-        speed = pScript;
-    }
-
     public void LevelScriptToGC(MonoBehaviour pScript)
     {
         level = pScript;
@@ -108,6 +104,11 @@ public class GameController : MonoBehaviour
     {
         gameLogic = pScript;
     }
+    public void SoundScriptToGC(MonoBehaviour pScript)
+    {
+        soundEffects = pScript;
+    }
+
 
 
     public void playerPassedEvent()
@@ -146,6 +147,12 @@ public class GameController : MonoBehaviour
         playerScore.Invoke("QuadLineClear", 0);
         linesCleared.Invoke("QuadLineClear", 0);
 
+    }
+
+    public void nextLevel()
+    {
+        level.Invoke("nextLevel",0);
+        SwitchGameSpeed();
     }
 
     void SwitchGameSpeed()

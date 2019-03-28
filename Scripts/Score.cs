@@ -57,49 +57,66 @@ public class Score : MonoBehaviour
 
     private void CheckChangeLevel()
     {
-        if (score > 1000 && currentLevel != 2)
+        if (score > 1000 && currentLevel < 2)
         {
             currentLevel = 2;
+            GameController.Instance.nextLevel();
         }
 
-        if (score > 2000 && currentLevel != 3)
+        if (score > 2000 && currentLevel < 3)
         {
             currentLevel = 3;
+            GameController.Instance.nextLevel();
+
         }
 
-        if (score > 3000 && currentLevel != 4)
+        if (score > 3000 && currentLevel < 4)
         {
             currentLevel = 4;
+            GameController.Instance.nextLevel();
+
         }
 
-        if (score > 4000 && currentLevel != 5)
+        if (score > 4000 && currentLevel < 5)
         {
             currentLevel = 5;
+            GameController.Instance.nextLevel();
+
         }
 
-        if (score > 5000 && currentLevel != 6)
+        if (score > 5000 && currentLevel < 6)
         {
             currentLevel = 6;
+            GameController.Instance.nextLevel();
+
         }
 
-        if (score > 6000 && currentLevel != 7)
+        if (score > 6000 && currentLevel < 7)
         {
             currentLevel = 7;
+            GameController.Instance.nextLevel();
+
         }
 
-        if (score > 7000 && currentLevel != 8)
+        if (score > 7000 && currentLevel < 8)
         {
             currentLevel = 8;
+            GameController.Instance.nextLevel();
+
         }
 
-        if (score > 8000 && currentLevel != 9)
+        if (score > 8000 && currentLevel < 9)
         {
             currentLevel = 9;
+            GameController.Instance.nextLevel();
+
         }
 
-        if (score > 9000 && currentLevel != 10)
+        if (score > 9000 && currentLevel < 10)
         {
             currentLevel = 10;
+            GameController.Instance.nextLevel();
+
         }
     }
 

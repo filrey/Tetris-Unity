@@ -8,7 +8,7 @@ public class Speed : MonoBehaviour
     void Start()
     {
         GameController.Instance.SubscribeScriptToGameEventUpdates(this);
-        GameController.Instance.SpeedScriptToGC(this);
+        //GameController.Instance.SpeedScriptToGC(this);
     }
 
     // Update is called once per frame
